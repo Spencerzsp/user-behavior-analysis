@@ -71,7 +71,7 @@ object LoginFailWithCep {
       .where(_.eventType == "fail")
       .next("next")
       .where(_.eventType == "fail")
-      .times(2)
+      .times(2) //匹配的次数为2
       .within(Time.seconds(2))
 
     //在keyBy之后的流中匹配出pattern stream
