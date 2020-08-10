@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HotItemsAnalysis/HotItemsAnalysis.iml" filepath="$PROJECT_DIR$/HotItemsAnalysis/HotItemsAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoginFailDetct/LoginFailDetct.iml" filepath="$PROJECT_DIR$/LoginFailDetct/LoginFailDetct.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MarketAnalysis/MarketAnalysis.iml" filepath="$PROJECT_DIR$/MarketAnalysis/MarketAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NetworkFlowAnalysis/NetworkFlowAnalysis.iml" filepath="$PROJECT_DIR$/NetworkFlowAnalysis/NetworkFlowAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OrderTimeoutDetect/OrderTimeoutDetect.iml" filepath="$PROJECT_DIR$/OrderTimeoutDetect/OrderTimeoutDetect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-behavior-analysis.iml" filepath="$PROJECT_DIR$/user-behavior-analysis.iml" />
+    </modules>
+  </component>
+</project>
