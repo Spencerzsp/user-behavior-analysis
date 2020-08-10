@@ -1,10 +1,15 @@
 package com.bigdata.flink
 
-import org.apache.flink.cep.scala.CEP
+import java.util
+
+import org.apache.flink.cep.functions.PatternProcessFunction
+import org.apache.flink.cep.pattern.conditions.{IterativeCondition, SimpleCondition}
+import org.apache.flink.cep.scala.{CEP, PatternStream}
 import org.apache.flink.cep.scala.pattern.Pattern
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.util.Collector
 
 /**
   * @ author spencer
@@ -32,6 +37,35 @@ object LoginFailWithCep {
       .assignAscendingTimestamps(_.eventTime * 1000)
       .keyBy(_.userId)
 
+//    其它定义pattern的几种方式
+//    Pattern.begin[LoginEvent]("start")
+//      .where(new IterativeCondition[LoginEvent] {
+//        override def filter(t: LoginEvent, context: IterativeCondition.Context[LoginEvent]): Boolean = t.eventType == "fail"
+//      })
+//
+//    val pattern: Pattern[LoginEvent, LoginEvent] = Pattern.begin[LoginEvent]("start")
+//      .where(new SimpleCondition[LoginEvent] {
+//        override def filter(value: LoginEvent): Boolean = value.eventType == "fail"
+//      })
+//      .next("next")
+//      .where(new SimpleCondition[LoginEvent] {
+//        override def filter(value: LoginEvent): Boolean = value.eventType == "fail"
+//      })
+//      .times(2)
+//      .within(Time.seconds(2))
+//
+//    val patternStream: PatternStream[LoginEvent] = CEP.pattern(dataStream, pattern)
+//    val value: DataStream[(String, String, String)] = patternStream.process(new PatternProcessFunction[LoginEvent, (String, String, String)] {
+//      override def processMatch(map: util.Map[String, util.List[LoginEvent]], context: PatternProcessFunction.Context, collector: Collector[(String, String, String)]): Unit = {
+//        val iter: util.Iterator[LoginEvent] = map.get().iterator()
+//        while (iter.hasNext) {
+//
+//          val loginEvent: LoginEvent = iter.next()
+//          collector.collect((loginEvent.ip, loginEvent.userId.toString, loginEvent.eventType))
+//        }
+//      }
+//    })
+
     //定义一个匹配模式,next紧邻发生的事件,判断在2s内紧邻发生的事件是否为fail
     val loginFailPattern = Pattern.begin[LoginEvent]("begin")
       .where(_.eventType == "fail")
@@ -52,7 +86,7 @@ object LoginFailWithCep {
       }
     )
 
-    logFailDataStream.print()
+//    logFailDataStream.print()
 
     env.execute("LoginFailWithCep")
   }
